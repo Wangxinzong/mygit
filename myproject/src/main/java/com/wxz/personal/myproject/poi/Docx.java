@@ -135,7 +135,6 @@ public class Docx {
         parsFooter[0] = footerParagraph;
         policy.createFooter(XWPFHeaderFooterPolicy.DEFAULT, parsFooter);
 
-
         document.write(fos);
         fos.close();
 
