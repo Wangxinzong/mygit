@@ -5,10 +5,10 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 
 public class Docx {
 
@@ -16,15 +16,19 @@ public class Docx {
         XWPFDocument document= new XWPFDocument();
         FileOutputStream fos = new FileOutputStream(new File("E:\\write-test.docx"));
         /**
-         * createParagraph：在文档里创建一个回车符，相当于定义一个段落。
+         * createParagraph：创建XWPFParagraph对象，在word文档里创建一个段落。
          * */
         XWPFParagraph titleParagraph = document.createParagraph();
 
         /**
-         * setAlignment:设置对齐方式*/
+         * setAlignment:设置对齐方式
+         * */
         //设置段落居中
         titleParagraph.setAlignment(ParagraphAlignment.CENTER);
 
+        /**
+         * XWPFRun：表示具有相同属性的一段文本，一个段落可以由多个XWPFRun组成
+         * */
         XWPFRun titleParagraphRun = titleParagraph.createRun();
         //设置内容，默认字体大小是五号
         titleParagraphRun.setText("Java PoI2");
@@ -32,6 +36,19 @@ public class Docx {
         titleParagraphRun.setColor("000000");
         //设置字体大小
         titleParagraphRun.setFontSize(20);
+
+        XWPFRun titleParagraphRun2 = titleParagraph.createRun();
+        //设置内容，默认字体大小是五号
+        titleParagraphRun2.setText("蓝色20号字体加粗斜体");
+        //设置字体颜色。16进制方式,如：#000000，但需要把#去掉
+        titleParagraphRun2.setColor("0000ff");
+        //设置字体大小
+        titleParagraphRun2.setFontSize(20);
+        //加粗
+        titleParagraphRun2.setBold(true);
+        //斜体
+        titleParagraphRun2.setItalic(true);
+
 
         //段落
         XWPFParagraph firstParagraph = document.createParagraph();
@@ -137,7 +154,38 @@ public class Docx {
 
         document.write(fos);
         fos.close();
+    }
 
+    public void read2docx() throws Exception {
+        FileInputStream fis = new FileInputStream(new File("E:\\write-test.docx"));
+        XWPFDocument document = new XWPFDocument(fis);
+        /**
+         * 获取使用createParagraph创建的段落数，通过\r\n、回车等方式的换行不计算在之内。
+         * */
+        List<XWPFParagraph> paragraphList = document.getParagraphs();
+        System.out.println("段落数："+paragraphList.size());
+        //读取段落
+        for(XWPFParagraph paragraph:paragraphList){
+            String text = paragraph.getText();
+            List<XWPFRun> runList = paragraph.getRuns();
+            System.out.println("段落内容:"+text+",runListSize:"+runList.size());
+        }
+        //读取表格
+        List<XWPFTable> tableList = document.getTables();
+        System.out.println("表格数:"+tableList.size());
+        for(XWPFTable table:tableList){
+            int rows = table.getNumberOfRows();
+            System.out.println("表格行数:"+rows);
+            for(int i=0;i<rows;i++){
+                XWPFTableRow tableRow = table.getRow(i);
+                List<XWPFTableCell> tableCellList = tableRow.getTableCells();
+                System.out.println("第"+i+"行的列数:"+tableCellList.size());
+                for(XWPFTableCell tableCell:tableCellList){
+                    String text = tableCell.getText();
+                    System.out.println("列内容:"+text);
+                }
+            }
+        }
 
 
     }
