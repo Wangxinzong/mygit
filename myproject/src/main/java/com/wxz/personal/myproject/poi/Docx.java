@@ -4,9 +4,7 @@ import org.apache.poi.xwpf.model.XWPFHeaderFooterPolicy;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -192,7 +190,85 @@ public class Docx {
                 }
             }
         }
+    }
 
+    public void mergeCellTest() throws Exception {
+        XWPFDocument document= new XWPFDocument();
+        FileOutputStream fos = new FileOutputStream(new File("E:\\abc.docx"));
 
+        //基本信息表格
+        /**
+         * 创建一个空表格，会默认有一行，行的宽度是0
+         * */
+        XWPFTable infoTable = document.createTable();
+
+        //列宽自动分割
+        /**
+         * addNewTblPr：创建表格属性对象
+         * addNewTblW：创建表格宽度对象
+         * */
+        CTTblWidth infoTableWidth = infoTable.getCTTbl().addNewTblPr().addNewTblW();
+        //设置表格宽度样式
+        infoTableWidth.setType(STTblWidth.PCT);
+        //设置表格宽度
+        infoTableWidth.setW(BigInteger.valueOf(9000));
+        //定义五列
+        XWPFTableRow infoTableRowOne = infoTable.getRow(0);
+        infoTableRowOne.getCell(0).setText("第一列");
+        infoTableRowOne.addNewTableCell().setText("第二列hhh");
+        infoTableRowOne.addNewTableCell().setText("第三列efefeeee");
+        infoTableRowOne.addNewTableCell().setText("四");
+        infoTableRowOne.addNewTableCell().setText("");
+
+        //表格第二行
+        XWPFTableRow infoTableRowTwo = infoTable.createRow();
+        //表格第三行
+        XWPFTableRow infoTableRowThree = infoTable.createRow();
+        //表格第si行
+        XWPFTableRow infoTableRowFour = infoTable.createRow();
+        //跨行合并
+        //mergeCellsVertically(infoTable,0,2,0);
+        //跨列合并
+        //mergeCellsHorizontal(infoTable,1,1,4);
+        document.write(fos);
+        fos.close();
+    }
+
+    /**
+     * 跨行合并
+     * fromRow：从哪一行开始
+     * toRow:到哪一行结束
+     * col:指定列
+     * */
+    public  void mergeCellsVertically(XWPFTable table ,int fromRow,int toRow,int col) throws Exception {
+        for (int rowIndex = fromRow; rowIndex <= toRow; rowIndex++) {
+            XWPFTableCell cell = table.getRow(rowIndex).getCell(col);
+            if ( rowIndex == fromRow ) {
+                // The first merged cell is set with RESTART merge value
+                cell.getCTTc().addNewTcPr().addNewVMerge().setVal(STMerge.RESTART);
+            } else {
+                // Cells which join (merge) the first one, are set with CONTINUE
+                cell.getCTTc().addNewTcPr().addNewVMerge().setVal(STMerge.CONTINUE);
+            }
+        }
+    }
+
+    /**
+     * 跨列合并
+     * row：指定行
+     * fromCell:从哪一列开始
+     * toCell;到那一列结束
+     * */
+    public  void mergeCellsHorizontal(XWPFTable table, int row, int fromCell, int toCell) {
+        for (int cellIndex = fromCell; cellIndex <= toCell; cellIndex++) {
+            XWPFTableCell cell = table.getRow(row).getCell(cellIndex);
+            if ( cellIndex == fromCell ) {
+                // The first merged cell is set with RESTART merge value
+                cell.getCTTc().addNewTcPr().addNewHMerge().setVal(STMerge.RESTART);
+            } else {
+                // Cells which join (merge) the first one, are set with CONTINUE
+                cell.getCTTc().addNewTcPr().addNewHMerge().setVal(STMerge.CONTINUE);
+            }
+        }
     }
 }
