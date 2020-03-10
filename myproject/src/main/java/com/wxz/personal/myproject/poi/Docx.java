@@ -157,18 +157,24 @@ public class Docx {
     }
 
     public void read2docx() throws Exception {
-        FileInputStream fis = new FileInputStream(new File("E:\\write-test.docx"));
+        String file = "E:\\write-test.docx";
+        FileInputStream fis = new FileInputStream(new File(file));
         XWPFDocument document = new XWPFDocument(fis);
         /**
-         * 获取使用createParagraph创建的段落数，通过\r\n、回车等方式的换行不计算在之内。
+         * 获取段落数，通过\r\n方式的换行不计算在之内。
          * */
         List<XWPFParagraph> paragraphList = document.getParagraphs();
         System.out.println("段落数："+paragraphList.size());
         //读取段落
         for(XWPFParagraph paragraph:paragraphList){
             String text = paragraph.getText();
+            System.out.println("段落内容:"+text);
             List<XWPFRun> runList = paragraph.getRuns();
-            System.out.println("段落内容:"+text+",runListSize:"+runList.size());
+            System.out.println("runListSize:"+runList.size());
+            for(XWPFRun run:runList){
+                System.out.println("run内容:"+run.text());
+            }
+
         }
         //读取表格
         List<XWPFTable> tableList = document.getTables();
