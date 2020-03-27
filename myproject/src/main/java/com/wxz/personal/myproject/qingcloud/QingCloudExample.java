@@ -43,6 +43,7 @@ public class QingCloudExample {
         long start = System.currentTimeMillis();
 
         try {
+            /***************Bucket操作********************/
             // Create a new Bucket
             Bucket.PutBucketOutput output = bucket.put();
             if (output.getStatueCode() == 201) {
@@ -72,6 +73,7 @@ public class QingCloudExample {
                 getBucketLifecycle(bucket);
                 deleteBucketLifecycle(bucket);
 
+                /*******************Object操作***********************/
                 String uploadFileName = "pek1.zip";
                 try {
                     putObject(bucket, "folder/" + uploadFileName, "/Users/chengww/Downloads/vpn/" + uploadFileName);
