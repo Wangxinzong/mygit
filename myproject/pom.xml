@@ -58,7 +58,7 @@
             <version>RELEASE</version>
         </dependency>
 
-        <!--本地qingCloud-->
+        <!--本地仓库的qingCloud-->
         <dependency>
             <groupId>com.yunify</groupId>
             <artifactId>qingstor.sdk.java</artifactId>
