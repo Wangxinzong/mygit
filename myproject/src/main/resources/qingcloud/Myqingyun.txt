@@ -1,0 +1,4 @@
+qy_access_key_id: 'DBNQFKYISQYWMSGZYGHU'
+qy_secret_access_key: 'HHY0M1xmkgHyForuxFcP8My10JXAjNSCT1gQ0RK6'
+1410048961@qq.com
+qingcloud.123456
