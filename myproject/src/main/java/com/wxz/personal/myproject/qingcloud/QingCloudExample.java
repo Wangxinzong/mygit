@@ -17,14 +17,21 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class QingCloudExample {
 
-    private static final String ACCESS_KEY = "DBNQFKYISQYWMSGZYGHU";
-    private static final String ACCESS_SECRET = "HHY0M1xmkgHyForuxFcP8My10JXAjNSCT1gQ0RK6";
-    private static final String ZONE = "pek3b";
+//    private static final String ACCESS_KEY = "DBNQFKYISQYWMSGZYGHU";
+//    private static final String ACCESS_SECRET = "HHY0M1xmkgHyForuxFcP8My10JXAjNSCT1gQ0RK6";
+//    private static final String ZONE = "pek3b";
+//    public static final String PROTOCOL = "https";
+//    public static final String HOST = "qingstor.com";
+
+    private static final String ACCESS_KEY = "HOYRTFLFPCOHVBQLZAWV";
+    private static final String ACCESS_SECRET = "huFHm3Et7Qsilrc821yVrG09Q0VbabJ9WUizTyeT";
+    private static final String ZONE = "lfrz1";
     public static final String PROTOCOL = "https";
-    public static final String HOST = "qingstor.com";
+    public static final String HOST = "stor.enncloud.cn";
 
     public static void main(String... args) {
         QingCloudExample examples = new QingCloudExample();
@@ -33,9 +40,24 @@ public class QingCloudExample {
         context.setHost(HOST);
         context.setRequestUrlStyle(QSConstant.PATH_STYLE);
         String zoneKey = ZONE;
-        String bucketName = "test-in-2018-08-08-by-chengww";
+        String bucketName = "enngcxt";
         Bucket bucket = new Bucket(context, zoneKey, bucketName);
-        examples.testAll(bucket, bucketName);
+        //examples.testAll(bucket, bucketName);
+        examples.listObjects(bucket,null,null);
+        /*try {
+            String fileUrl = "D:\\Picture\\12.jpg";
+            File file = new File(fileUrl);
+            //获取文件名后缀
+            String fileName = file.getName();
+            String fileTyle=fileName.substring(fileName.lastIndexOf("."));
+            System.out.println("-----fileTyp:"+fileTyle);
+            //使用UUID命名文件名
+            String uuidFileName = UUID.randomUUID().toString().toUpperCase().replace("-", "") + fileTyle;
+            System.out.println("-----uuidName:"+uuidFileName);
+            examples.putObject(bucket,uuidFileName,fileUrl);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public void testAll(Bucket bucket, String bucketName) {
@@ -328,8 +350,9 @@ public class QingCloudExample {
      */
     public void putObject(Bucket bucket, String objectKey, String filePath) throws FileNotFoundException {
         File file = new File(filePath);
-        if (!file.exists() || file.isDirectory())
+        if (!file.exists() || file.isDirectory()){
             throw new FileNotFoundException("File does not exist or it is a directory.");
+        }
 
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         // Using the JDK1.7 self-bringing method to get content type(Requires JDK 1.7+, linux requires GLib.)
@@ -344,7 +367,7 @@ public class QingCloudExample {
         input.setContentLength(file.length());
         input.setBodyInputFile(file);
         try {
-            Bucket.PutObjectOutput output = bucket.putObject(objectKey, input);
+            Bucket.PutObjectOutput output = bucket.putObject("test/clys/"+objectKey, input);
             if (output.getStatueCode() == 201) {
                 System.out.println("PUT Object OK.");
                 System.out.println("key = " + objectKey);
@@ -438,7 +461,8 @@ public class QingCloudExample {
         input.setDelimiter("/");
         input.setLimit(100); // Default 200, max 1000
         try {
-            Bucket.ListObjectsOutput output = bucket.listObjects(input);
+            //Bucket.ListObjectsOutput output = bucket.listObjects(input);
+            Bucket.ListObjectsOutput output = bucket.listObjects(null);
             if (output.getStatueCode() == 200) {
                 // Success
                 System.out.println("List Objects success.");

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.UUID;
 
 public class QingCloudExample2 {
 
@@ -77,7 +78,7 @@ public class QingCloudExample2 {
                 // 获取对象
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
                 // 构建Bucket对象
-                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.zone);
+                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.myZone);
                 //创建Bucket
                 Bucket.PutBucketOutput putBucketOutput = bucket.put();
 
@@ -112,7 +113,7 @@ public class QingCloudExample2 {
                 // 获取对象
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
                //构建Bucket对象
-                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.zone);
+                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.myZone);
                 // 删除bucket对象
                 Bucket.DeleteBucketOutput deleteBucketOutput =  bucket.delete();
 
@@ -147,7 +148,7 @@ public class QingCloudExample2 {
                 // 获取QingStor对象
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
                 // 获取Bucket对象
-                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.zone);
+                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.myZone);
                 // 获取Object对象列表
                 Bucket.ListObjectsOutput listOutput = bucket.listObjects(null);
 
@@ -182,7 +183,7 @@ public class QingCloudExample2 {
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
 
                 // 获取Bucket对象
-                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.zone);
+                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.myZone);
 
                 // 判断文件名称是否为空
                 if (!StringUtils.isEmpty(obj.get("objectName"))) {
@@ -217,7 +218,7 @@ public class QingCloudExample2 {
             JSONObject obj = JSONObject.parseObject(objJson);
             if (obj != null && !StringUtils.isEmpty(obj.get("bucketName"))) {
                 // 文件路径
-                String fileUrl = "D:\\Picture\\12.jpg";
+                String fileUrl = "D:\\Picture\\zjg.jpg";
                 File file = new File(fileUrl);
                 if(!file.exists()) {
                     return fileUrl + " is not exists!";
@@ -227,7 +228,7 @@ public class QingCloudExample2 {
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
 
                 // 获取Bucket对象
-                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.zone);
+                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.myZone);
 
                 // 创建对象
                 Bucket.PutObjectInput input = new Bucket.PutObjectInput();
@@ -235,10 +236,10 @@ public class QingCloudExample2 {
                 String contentType = Files.probeContentType(Paths.get(fileUrl));
                 input.setContentType(contentType);
                 input.setContentLength(file.length());
-                Bucket.PutObjectOutput putObjectOutput = bucket.putObject("abc/weieoo/1a.jpg", input);
+                Bucket.PutObjectOutput putObjectOutput = bucket.putObject("clys2/"+file.getName(), input);
                 if(putObjectOutput.getStatueCode()==201){
                     long expiration = System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10;
-                    String saveUrl = bucket.GetObjectBySignatureUrlRequest("abc/weieoo/1a.jpg",null,expiration).getExpiresRequestUrl();
+                    String saveUrl = bucket.GetObjectBySignatureUrlRequest(file.getName(),null,expiration).getExpiresRequestUrl();
                     System.out.println(saveUrl);
                 }
                 LOGGER.info("/createObject,创建Bucket Object-----end-----");
@@ -275,7 +276,7 @@ public class QingCloudExample2 {
                 // 获取QingStor对象
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
 
-                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.zone);
+                Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.myZone);
 
                 Bucket.GetObjectInput headObjectInput = new Bucket.GetObjectInput();
                 Bucket.GetObjectOutput out = bucket.getObject(String.valueOf(obj.get("objectName")), headObjectInput);
@@ -295,25 +296,24 @@ public class QingCloudExample2 {
         return "false";
     }
 
-
     static class QingStorUtils {
 
         private final static Logger LOGGER = LoggerFactory.getLogger(QingStorUtils.class);
 
         // 北京3区
-        public final static String zone = "pek3b";
+        public final static String myZone = "pek3b";
         // qy_access_key_id
-        private final static String accessKeyId = "DBNQFKYISQYWMSGZYGHU";
+        private final static String myAccessKeyId = "DBNQFKYISQYWMSGZYGHU";
         // qy_secret_access_key
-        private final static String secretAccessKey = "HHY0M1xmkgHyForuxFcP8My10JXAjNSCT1gQ0RK6";
+        private final static String mySecretAccessKey = "HHY0M1xmkgHyForuxFcP8My10JXAjNSCT1gQ0RK6";;
 
         private static class QingStorService {
             // 获取对象
             private static QingStor qingStor = getQingStor();
 
             private static QingStor getQingStor() {
-                EvnContext evn = new EvnContext(accessKeyId, secretAccessKey);
-                QingStor storService = new QingStor(evn, zone);
+                EvnContext evn = new EvnContext(myAccessKeyId, mySecretAccessKey);
+                QingStor storService = new QingStor(evn, myZone);
                 // 返回
                 return storService;
             }
