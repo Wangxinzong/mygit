@@ -1,20 +1,28 @@
-package com.activemq.example.producer;
+package com.activemq.example.jms;
 
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.command.ActiveMQTopic;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.DefaultMessageListenerContainer;
 
 import javax.jms.*;
-import java.net.CacheRequest;
 
 public class ProducerTest {
 
-    private String DEFAULT_BROKER_URL = "tcp://10.1.169.52:61616";
+    //private String DEFAULT_BROKER_URL = "tcp://10.1.169.52:61616";
+    private String DEFAULT_BROKER_URL = "tcp://192.168.43.111:61616";
     private String DEFAULT_USER = "admin";
     private String DEFAULT_PASSWORD = "admin";
     private ActiveMQConnectionFactory connectionFactory;
     private Connection connection;
     private Session session;
     private MessageProducer producer;
+
+    private JmsTemplate jmsTemplate;
+    private ActiveMQQueue mqQueue;
+    private ActiveMQTopic activeMQTopic;
+    private DefaultMessageListenerContainer messageListenerContainer;
 
     public static void main(String[] args){
         ProducerTest pt = new ProducerTest();
@@ -45,6 +53,7 @@ public class ProducerTest {
         }
         finally {
             producer.close();
+            session.commit();
             session.close();
             connection.close();
         }

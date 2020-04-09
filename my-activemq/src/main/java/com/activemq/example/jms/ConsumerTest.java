@@ -1,4 +1,4 @@
-package com.activemq.example.producer;
+package com.activemq.example.jms;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -6,7 +6,8 @@ import javax.jms.*;
 
 public class ConsumerTest {
 
-    private String DEFAULT_BROKER_URL = "tcp://10.1.169.52:61616";
+    //private String DEFAULT_BROKER_URL = "tcp://10.1.169.52:61616";
+    private String DEFAULT_BROKER_URL = "tcp://192.168.43.111:61616";
     private String DEFAULT_USER = "admin";
     private String DEFAULT_PASSWORD = "admin";
     private ActiveMQConnectionFactory connectionFactory;
