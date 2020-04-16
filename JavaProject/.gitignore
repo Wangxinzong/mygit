@@ -34,3 +34,5 @@ build/
 # mvn ignore
 .mvn/
 mvnw
+
+JavaProject.iml

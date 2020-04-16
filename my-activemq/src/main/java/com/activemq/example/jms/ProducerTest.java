@@ -3,10 +3,16 @@ package com.activemq.example.jms;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.core.MessagePostProcessor;
 
 import javax.jms.*;
+import java.util.HashMap;
 
 public class ProducerTest {
 
@@ -19,11 +25,6 @@ public class ProducerTest {
     private Session session;
     private MessageProducer producer;
 
-    private JmsTemplate jmsTemplate;
-    private ActiveMQQueue mqQueue;
-    private ActiveMQTopic activeMQTopic;
-    private DefaultMessageListenerContainer messageListenerContainer;
-
     public static void main(String[] args){
         ProducerTest pt = new ProducerTest();
         try {
@@ -31,7 +32,6 @@ public class ProducerTest {
         } catch (JMSException e) {
             e.printStackTrace();
         }
-
     }
 
     public void connection() throws JMSException {

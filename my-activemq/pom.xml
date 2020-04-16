@@ -26,6 +26,12 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.2.5.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
@@ -43,6 +49,17 @@
             <version>5.15.9</version>
         </dependency>
 
+        <!--
+            activeMQ使用连接池
+            springboot2.1+版本以上使用如下jar包，jar包下载地址：https://repo.maven.apache.org/maven2
+            springboot2.0版本一下使用activemq-pool.jar包
+        -->
+        <dependency>
+            <groupId>org.messaginghub</groupId>
+            <artifactId>pooled-jms</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
         <!--springBoot-ActiveMQ-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,8 +68,18 @@
         </dependency>
     </dependencies>
 
-
-
+    <repositories>
+        <repository>
+            <id>apache-maven2</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
