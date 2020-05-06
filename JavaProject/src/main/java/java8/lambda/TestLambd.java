@@ -2,6 +2,8 @@ package main.java.java8.lambda;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.function.*;
 
 /**
  * lambda基础语法
@@ -39,7 +41,31 @@ public class TestLambd {
         MyFunction myFunction = (Integer para1,Integer para2) -> {return para1+para2;};
         Integer resutl = myFunction.method(10,34);
         System.out.println(resutl);
+    }
 
+    /**
+     * 四大内置核心函数式接口
+     * */
+    public void kenel(){
+        //Consumer<T>
+        Consumer<String> consumer = (e)->{System.out.println(e);};
+        consumer.accept("消费型");
 
+        //Supplier 消费型
+        Supplier<Integer> supplier = ()->{return 2*3+90;};
+        Integer result = supplier.get();
+        System.out.println(result);
+
+        //Function<T,R> 函数型
+        Function<Integer,String> function = (x)->{return String.valueOf(x*x);};
+        String s = function.apply(98);
+        System.out.println(s);
+
+        //Predicate 断言型
+        Predicate<Boolean> predicate = (x)->{return x==true;};
+        System.out.println(predicate.test(false));
+
+        BiPredicate<String,String> biPredicate = (a,b)->{return a.equals(b);};
+        BiPredicate<String,String> biPredicate2 = String::equals;
     }
 }

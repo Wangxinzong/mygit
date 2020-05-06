@@ -30,7 +30,7 @@ public class QingCloudExample {
     private static final String ACCESS_KEY = "HOYRTFLFPCOHVBQLZAWV";
     private static final String ACCESS_SECRET = "huFHm3Et7Qsilrc821yVrG09Q0VbabJ9WUizTyeT";
     private static final String ZONE = "lfrz1";
-    public static final String PROTOCOL = "https";
+    public static final String PROTOCOL = "http";
     public static final String HOST = "stor.enncloud.cn";
 
     public static void main(String... args) {
@@ -41,11 +41,12 @@ public class QingCloudExample {
         context.setRequestUrlStyle(QSConstant.PATH_STYLE);
         String zoneKey = ZONE;
         String bucketName = "enngcxt";
+        //String bucketName = "ouyangjun2";
         Bucket bucket = new Bucket(context, zoneKey, bucketName);
         //examples.testAll(bucket, bucketName);
         examples.listObjects(bucket,null,null);
-        /*try {
-            String fileUrl = "D:\\Picture\\12.jpg";
+        /*ry {
+            String fileUrl = "D:\\Picture\\04.jpg";
             File file = new File(fileUrl);
             //获取文件名后缀
             String fileName = file.getName();
@@ -367,7 +368,8 @@ public class QingCloudExample {
         input.setContentLength(file.length());
         input.setBodyInputFile(file);
         try {
-            Bucket.PutObjectOutput output = bucket.putObject("test/clys/"+objectKey, input);
+            //test/
+            Bucket.PutObjectOutput output = bucket.putObject("clys/"+objectKey, input);
             if (output.getStatueCode() == 201) {
                 System.out.println("PUT Object OK.");
                 System.out.println("key = " + objectKey);
