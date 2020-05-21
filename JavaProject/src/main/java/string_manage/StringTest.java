@@ -3,8 +3,8 @@ package main.java.string_manage;
 public class StringTest {
 
     public static void main(String[] args){
-        StringTest st = new StringTest();
-        st.stringformate();
+        //StringTest st = new StringTest();
+        //st.stringformate();
     }
 
     //String.formate()
