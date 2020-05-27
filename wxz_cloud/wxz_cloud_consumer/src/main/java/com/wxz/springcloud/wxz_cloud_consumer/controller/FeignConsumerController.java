@@ -2,6 +2,9 @@ package com.wxz.springcloud.wxz_cloud_consumer.controller;
 
 import com.wxz.springcloud.wxz_cloud_common.entity.User;
 import com.wxz.springcloud.wxz_cloud_consumer.controller.api.PrividerApi;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,12 +20,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("feign")
+@Api(description = "微服务调用")
 public class FeignConsumerController {
 
     @Autowired
     private PrividerApi prividerApi;
 
     @PostMapping("/addUser")
+    @ApiOperation(value = "添加用户")
     public User insertUser(@RequestBody  User user){
         return prividerApi.insertUser(user);
     }
@@ -36,6 +41,7 @@ public class FeignConsumerController {
     }
 
     @PostMapping(value = "/findAll")
+    @ApiImplicitParam(paramType = "query",name = "pageSize",value = "条数",dataType = "int")
     public List<User> findAll(Integer pageSize){
         System.out.println(pageSize);
         return  prividerApi.findAll(pageSize);
