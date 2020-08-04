@@ -44,7 +44,7 @@ public class QingCloudExample {
         //String bucketName = "ouyangjun2";
         Bucket bucket = new Bucket(context, zoneKey, bucketName);
         //examples.testAll(bucket, bucketName);
-        examples.listObjects(bucket,null,null);
+        examples.listObjects(bucket, null, null);
         /*ry {
             String fileUrl = "D:\\Picture\\04.jpg";
             File file = new File(fileUrl);
@@ -351,7 +351,7 @@ public class QingCloudExample {
      */
     public void putObject(Bucket bucket, String objectKey, String filePath) throws FileNotFoundException {
         File file = new File(filePath);
-        if (!file.exists() || file.isDirectory()){
+        if (!file.exists() || file.isDirectory()) {
             throw new FileNotFoundException("File does not exist or it is a directory.");
         }
 
@@ -369,7 +369,7 @@ public class QingCloudExample {
         input.setBodyInputFile(file);
         try {
             //test/
-            Bucket.PutObjectOutput output = bucket.putObject("clys/"+objectKey, input);
+            Bucket.PutObjectOutput output = bucket.putObject("clys/" + objectKey, input);
             if (output.getStatueCode() == 201) {
                 System.out.println("PUT Object OK.");
                 System.out.println("key = " + objectKey);
@@ -442,6 +442,7 @@ public class QingCloudExample {
     /**
      * List objects start with prefix(folderName), after a object named marker. Limit up to 100 data.
      * 列取所有前缀为 prefix(folderName) ，在 marker 之后的对象。每次最多 100 条数据。
+     *
      * @param bucket bucket
      * @param prefix prefix(folderName)
      * @param marker View the data on the next page. The marker is the value of next_marker returned by the last Response

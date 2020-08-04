@@ -22,7 +22,7 @@ public class QingCloudExample2 {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(QingCloudExample2.class);
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         String result = null;
         String bucketName = "{\"bucketName\":\"ouyangjun2\"}";
         String bucketObjectName = "{\"bucketName\":\"ouyangjun2\",\"objectName\":\"zjg.jpg\"}";
@@ -34,7 +34,7 @@ public class QingCloudExample2 {
 
     /**
      * 青云-获取Bucket列表
-     *Bucket:存储空间
+     * Bucket:存储空间
      */
     public String listBuckets() {
         try {
@@ -60,9 +60,10 @@ public class QingCloudExample2 {
     /**
      * 青云-创建Bucket
      * 请求地址: http://localhost:8080/qingstor/createBucket
-     参数: {
-     "bucketName":"ouyangjun"
-     }
+     * 参数: {
+     * "bucketName":"ouyangjun"
+     * }
+     *
      * @return
      */
     public String createBucket(String objJson) {
@@ -74,7 +75,7 @@ public class QingCloudExample2 {
             LOGGER.info("/createBucket,创建Bucket步骤-----begin-----");
             // 解析对象
             JSONObject obj = JSONObject.parseObject(objJson);
-            if(obj != null && !StringUtils.isEmpty(obj.get("bucketName"))){
+            if (obj != null && !StringUtils.isEmpty(obj.get("bucketName"))) {
                 // 获取对象
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
                 // 构建Bucket对象
@@ -95,9 +96,10 @@ public class QingCloudExample2 {
     /**
      * 青云-删除Bucket
      * 请求地址: http://localhost:8080/qingstor/deleteBucket
-     参数: {
-     "bucketName":"ouyangjun"
-     }
+     * 参数: {
+     * "bucketName":"ouyangjun"
+     * }
+     *
      * @return
      */
     public String deleteBucket(String objJson) {
@@ -109,13 +111,13 @@ public class QingCloudExample2 {
             LOGGER.info("/deleteBucket,删除Bucket步骤-----begin-----");
             // 解析对象
             JSONObject obj = JSONObject.parseObject(objJson);
-            if(obj != null && !StringUtils.isEmpty(obj.get("bucketName"))){
+            if (obj != null && !StringUtils.isEmpty(obj.get("bucketName"))) {
                 // 获取对象
                 QingStor qingstor = QingStorUtils.getQingStorSingleton();
-               //构建Bucket对象
+                //构建Bucket对象
                 Bucket bucket = qingstor.getBucket(String.valueOf(obj.get("bucketName")), QingStorUtils.myZone);
                 // 删除bucket对象
-                Bucket.DeleteBucketOutput deleteBucketOutput =  bucket.delete();
+                Bucket.DeleteBucketOutput deleteBucketOutput = bucket.delete();
 
                 LOGGER.info("/deleteBucket,删除Bucket步骤-----end-----");
                 return JSONObject.toJSONString(deleteBucketOutput);
@@ -131,9 +133,9 @@ public class QingCloudExample2 {
     /**
      * 获取Bucket中存储的Object列表
      * 请求地址: http://localhost:8080/qingstor/listObjects
-     参数: {
-     "bucketName":"ouyangjun"
-     }
+     * 参数: {
+     * "bucketName":"ouyangjun"
+     * }
      */
     public String listObjects(String objJson) {
         LOGGER.info("/listObjects,objJson: {}", objJson);
@@ -164,10 +166,10 @@ public class QingCloudExample2 {
     /**
      * 删除Bucket中存储的Object列表
      * 请求地址: http://localhost:8080/qingstor/deleteObject
-     参数: {
-     "bucketName":"ouyangjun",
-     "objectName":""
-     }
+     * 参数: {
+     * "bucketName":"ouyangjun",
+     * "objectName":""
+     * }
      */
     public String deleteObject(String objJson) {
         LOGGER.info("/deleteObject,objJson: {}", objJson);
@@ -203,11 +205,11 @@ public class QingCloudExample2 {
     /**
      * 在指定Bucket下创建一个Object对象
      * 请求地址: http://localhost:8080/qingstor/createObject
-     参数: {
-     "bucketName":"ouyangjun"
-     }
+     * 参数: {
+     * "bucketName":"ouyangjun"
+     * }
      */
-    public String createObject( String objJson) {
+    public String createObject(String objJson) {
         LOGGER.info("/createObject,objJson: {}", objJson);
         if (StringUtils.isEmpty(objJson)) {
             return "objJson is null!";
@@ -220,7 +222,7 @@ public class QingCloudExample2 {
                 // 文件路径
                 String fileUrl = "D:\\Picture\\zjg.jpg";
                 File file = new File(fileUrl);
-                if(!file.exists()) {
+                if (!file.exists()) {
                     return fileUrl + " is not exists!";
                 }
 
@@ -236,10 +238,10 @@ public class QingCloudExample2 {
                 String contentType = Files.probeContentType(Paths.get(fileUrl));
                 input.setContentType(contentType);
                 input.setContentLength(file.length());
-                Bucket.PutObjectOutput putObjectOutput = bucket.putObject("clys2/"+file.getName(), input);
-                if(putObjectOutput.getStatueCode()==201){
+                Bucket.PutObjectOutput putObjectOutput = bucket.putObject("clys2/" + file.getName(), input);
+                if (putObjectOutput.getStatueCode() == 201) {
                     long expiration = System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10;
-                    String saveUrl = bucket.GetObjectBySignatureUrlRequest(file.getName(),null,expiration).getExpiresRequestUrl();
+                    String saveUrl = bucket.GetObjectBySignatureUrlRequest(file.getName(), null, expiration).getExpiresRequestUrl();
                     System.out.println(saveUrl);
                 }
                 LOGGER.info("/createObject,创建Bucket Object-----end-----");
@@ -256,14 +258,14 @@ public class QingCloudExample2 {
 
     /**
      * 查询青云QingStor文件,可以转换成流
-     * @param objJson
-     * 请求地址: http://localhost:8080/qingstor/getObjectByFileName
-    参数: {
-    "bucketName":"ouyangjun",
-    "objectName":"oyj.txt"
-    }
+     *
+     * @param objJson 请求地址: http://localhost:8080/qingstor/getObjectByFileName
+     *                参数: {
+     *                "bucketName":"ouyangjun",
+     *                "objectName":"oyj.txt"
+     *                }
      */
-    public String getFileByte( String objJson) {
+    public String getFileByte(String objJson) {
         LOGGER.info("/getObjectByFileName,objJson: {}", objJson);
         if (StringUtils.isEmpty(objJson)) {
             return "objJson is null!";
@@ -305,7 +307,8 @@ public class QingCloudExample2 {
         // qy_access_key_id
         private final static String myAccessKeyId = "DBNQFKYISQYWMSGZYGHU";
         // qy_secret_access_key
-        private final static String mySecretAccessKey = "HHY0M1xmkgHyForuxFcP8My10JXAjNSCT1gQ0RK6";;
+        private final static String mySecretAccessKey = "HHY0M1xmkgHyForuxFcP8My10JXAjNSCT1gQ0RK6";
+        ;
 
         private static class QingStorService {
             // 获取对象
@@ -321,6 +324,7 @@ public class QingCloudExample2 {
 
         /**
          * 构建QingStor对象
+         *
          * @return
          */
         public static QingStor getQingStorSingleton() {

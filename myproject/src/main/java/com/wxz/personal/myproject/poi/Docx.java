@@ -11,7 +11,7 @@ import java.util.List;
 public class Docx {
 
     public void write2docx() throws Exception {
-        XWPFDocument document= new XWPFDocument();
+        XWPFDocument document = new XWPFDocument();
         FileOutputStream fos = new FileOutputStream(new File("E:\\write-test.docx"));
         /**
          * createParagraph：创建XWPFParagraph对象，在word文档里创建一个段落。
@@ -83,7 +83,7 @@ public class Docx {
         //设置表格宽度样式
         infoTableWidth.setType(STTblWidth.DXA);
         //设置表格宽度
-       infoTableWidth.setW(BigInteger.valueOf(9072));
+        infoTableWidth.setW(BigInteger.valueOf(9072));
 
         //表格第一行
         /**
@@ -119,7 +119,6 @@ public class Docx {
         infoTableRowFive.getCell(1).setText(": xx");
 
 
-
         CTSectPr sectPr = document.getDocument().getBody().addNewSectPr();
         XWPFHeaderFooterPolicy policy = new XWPFHeaderFooterPolicy(document, sectPr);
 
@@ -135,7 +134,6 @@ public class Docx {
         XWPFParagraph[] parsHeader = new XWPFParagraph[1];
         parsHeader[0] = headerParagraph;
         policy.createHeader(XWPFHeaderFooterPolicy.DEFAULT, parsHeader);
-
 
 
         //添加页脚
@@ -162,38 +160,38 @@ public class Docx {
          * 获取段落数，通过\r\n方式的换行不计算在之内。
          * */
         List<XWPFParagraph> paragraphList = document.getParagraphs();
-        System.out.println("段落数："+paragraphList.size());
+        System.out.println("段落数：" + paragraphList.size());
         //读取段落
-        for(XWPFParagraph paragraph:paragraphList){
+        for (XWPFParagraph paragraph : paragraphList) {
             String text = paragraph.getText();
-            System.out.println("段落内容:"+text);
+            System.out.println("段落内容:" + text);
             List<XWPFRun> runList = paragraph.getRuns();
-            System.out.println("runListSize:"+runList.size());
-            for(XWPFRun run:runList){
-                System.out.println("run内容:"+run.text());
+            System.out.println("runListSize:" + runList.size());
+            for (XWPFRun run : runList) {
+                System.out.println("run内容:" + run.text());
             }
 
         }
         //读取表格
         List<XWPFTable> tableList = document.getTables();
-        System.out.println("表格数:"+tableList.size());
-        for(XWPFTable table:tableList){
+        System.out.println("表格数:" + tableList.size());
+        for (XWPFTable table : tableList) {
             int rows = table.getNumberOfRows();
-            System.out.println("表格行数:"+rows);
-            for(int i=0;i<rows;i++){
+            System.out.println("表格行数:" + rows);
+            for (int i = 0; i < rows; i++) {
                 XWPFTableRow tableRow = table.getRow(i);
                 List<XWPFTableCell> tableCellList = tableRow.getTableCells();
-                System.out.println("第"+i+"行的列数:"+tableCellList.size());
-                for(XWPFTableCell tableCell:tableCellList){
+                System.out.println("第" + i + "行的列数:" + tableCellList.size());
+                for (XWPFTableCell tableCell : tableCellList) {
                     String text = tableCell.getText();
-                    System.out.println("列内容:"+text);
+                    System.out.println("列内容:" + text);
                 }
             }
         }
     }
 
     public void mergeCellTest() throws Exception {
-        XWPFDocument document= new XWPFDocument();
+        XWPFDocument document = new XWPFDocument();
         FileOutputStream fos = new FileOutputStream(new File("E:\\abc.docx"));
 
         //基本信息表格
@@ -239,11 +237,11 @@ public class Docx {
      * fromRow：从哪一行开始
      * toRow:到哪一行结束
      * col:指定列
-     * */
-    public  void mergeCellsVertically(XWPFTable table ,int fromRow,int toRow,int col) throws Exception {
+     */
+    public void mergeCellsVertically(XWPFTable table, int fromRow, int toRow, int col) throws Exception {
         for (int rowIndex = fromRow; rowIndex <= toRow; rowIndex++) {
             XWPFTableCell cell = table.getRow(rowIndex).getCell(col);
-            if ( rowIndex == fromRow ) {
+            if (rowIndex == fromRow) {
                 // The first merged cell is set with RESTART merge value
                 cell.getCTTc().addNewTcPr().addNewVMerge().setVal(STMerge.RESTART);
             } else {
@@ -258,11 +256,11 @@ public class Docx {
      * row：指定行
      * fromCell:从哪一列开始
      * toCell;到那一列结束
-     * */
-    public  void mergeCellsHorizontal(XWPFTable table, int row, int fromCell, int toCell) {
+     */
+    public void mergeCellsHorizontal(XWPFTable table, int row, int fromCell, int toCell) {
         for (int cellIndex = fromCell; cellIndex <= toCell; cellIndex++) {
             XWPFTableCell cell = table.getRow(row).getCell(cellIndex);
-            if ( cellIndex == fromCell ) {
+            if (cellIndex == fromCell) {
                 // The first merged cell is set with RESTART merge value
                 cell.getCTTc().addNewTcPr().addNewHMerge().setVal(STMerge.RESTART);
             } else {

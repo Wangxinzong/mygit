@@ -23,13 +23,12 @@ public class LoginController {
     private User user;
 
     @RequestMapping("test")
-    public BaseResponse test(){
+    public BaseResponse test() {
         System.out.println(user.toString());
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setMessage("test接口返回成功");
         return baseResponse;
     }
-
 
 
 }
