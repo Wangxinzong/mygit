@@ -1,0 +1,11 @@
+spring:
+  redis:
+    type: standalone
+    config:
+      type: manual
+    host: 10.39.51.34
+    port: 6379
+    password:
+    maxIdle: 500
+    maxTotal: 500
+    maxWaitMillis: -1
