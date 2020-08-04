@@ -21,12 +21,12 @@ public class AMQConfig {
     private String topicName;
 
     @Bean
-    public Queue createQueue(){
+    public Queue createQueue() {
         return new ActiveMQQueue(queueName);
     }
 
     @Bean
-    public Topic createTopic(){
+    public Topic createTopic() {
         return new ActiveMQTopic(topicName);
     }
 

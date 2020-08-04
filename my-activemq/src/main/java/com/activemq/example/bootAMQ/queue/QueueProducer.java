@@ -15,7 +15,7 @@ public class QueueProducer {
     @Autowired
     private Queue queue;
 
-    public void sendQueue(){
-        jmsMessagingTemplate.convertAndSend(queue,"队列消息");
+    public void sendQueue() {
+        jmsMessagingTemplate.convertAndSend(queue, "队列消息");
     }
 }

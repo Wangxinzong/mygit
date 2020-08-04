@@ -14,7 +14,7 @@ public class TopicProducer {
     @Autowired
     private Topic topic;
 
-    public void sendTopic(){
-        jmsMessagingTemplate.convertAndSend(topic,"---主题消息----");
+    public void sendTopic() {
+        jmsMessagingTemplate.convertAndSend(topic, "---主题消息----");
     }
 }

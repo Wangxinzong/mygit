@@ -25,7 +25,7 @@ public class ProducerTest {
     private Session session;
     private MessageProducer producer;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         ProducerTest pt = new ProducerTest();
         try {
             pt.connection();
@@ -37,21 +37,19 @@ public class ProducerTest {
     public void connection() throws JMSException {
         try {
             connectionFactory = new ActiveMQConnectionFactory(DEFAULT_BROKER_URL);
-            connection = connectionFactory.createConnection(DEFAULT_USER,DEFAULT_PASSWORD);
+            connection = connectionFactory.createConnection(DEFAULT_USER, DEFAULT_PASSWORD);
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             Queue queue = session.createQueue("queue1");
             producer = session.createProducer(queue);
             TextMessage message = session.createTextMessage();
-            for(int i=11;i<14;i++){
-                message.setText("0"+i);
+            for (int i = 11; i < 14; i++) {
+                message.setText("0" + i);
                 producer.send(message);
             }
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        }
-        finally {
+        } finally {
             producer.close();
             session.commit();
             session.close();
