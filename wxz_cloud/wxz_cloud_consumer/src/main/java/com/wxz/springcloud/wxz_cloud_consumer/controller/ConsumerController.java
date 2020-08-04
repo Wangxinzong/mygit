@@ -21,29 +21,29 @@ public class ConsumerController {
     private RestTemplate restTemplate;
 
     @GetMapping("getUser")
-    public User gethelloConsumer(){
+    public User gethelloConsumer() {
         User user = null;
         // user = restTemplate.getForEntity("http://CLOUD-PROVIDER/findById?id={1}", User.class,1).getBody();
 
-        Map<String,Integer> map = new HashMap<>();
-        map.put("id",2);
-       user =  restTemplate.getForEntity("http://CLOUD-PROVIDER/findById?id={id}", User.class,map).getBody();
-        return  user;
+        Map<String, Integer> map = new HashMap<>();
+        map.put("id", 2);
+        user = restTemplate.getForEntity("http://CLOUD-PROVIDER/findById?id={id}", User.class, map).getBody();
+        return user;
     }
 
     @PostMapping("addUser")
-    public User insertUser(@RequestBody  User user){
-        return restTemplate.postForEntity("http://CLOUD-PROVIDER/add", user,User.class).getBody();
+    public User insertUser(@RequestBody User user) {
+        return restTemplate.postForEntity("http://CLOUD-PROVIDER/add", user, User.class).getBody();
     }
 
     @GetMapping("getAll")
-    public List<User> getAll(){
+    public List<User> getAll() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        MultiValueMap<String, String> map= new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("pageSize", "10");
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-        return restTemplate.postForEntity("http://CLOUD-PROVIDER/findAll",request,List.class).getBody();
+        return restTemplate.postForEntity("http://CLOUD-PROVIDER/findAll", request, List.class).getBody();
     }
 }

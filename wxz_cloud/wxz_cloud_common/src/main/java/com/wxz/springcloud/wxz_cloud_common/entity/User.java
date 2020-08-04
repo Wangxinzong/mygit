@@ -6,13 +6,13 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel
 public class User {
 
-    @ApiModelProperty(value = "主键",name = "id")
+    @ApiModelProperty(value = "主键", name = "id")
     private Integer id;
-    @ApiModelProperty(value = "用户名",name = "name")
+    @ApiModelProperty(value = "用户名", name = "name")
     private String name;
     @ApiModelProperty(value = "地址")
     private String address;
-    @ApiModelProperty(value = "工资",name = "salary")
+    @ApiModelProperty(value = "工资", name = "salary")
     private Double salary;
 
     public Integer getId() {

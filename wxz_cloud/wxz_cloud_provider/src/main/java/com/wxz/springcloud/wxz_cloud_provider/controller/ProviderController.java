@@ -13,55 +13,50 @@ public class ProviderController {
     private List<User> userList = new ArrayList<>();
 
     @PostMapping(value = "add")
-    public User insertUser(@RequestBody User user){
+    public User insertUser(@RequestBody User user) {
         userList.add(user);
-        System.out.println("添加成功:"+userList.size());
-        return  user;
+        System.out.println("添加成功:" + userList.size());
+        return user;
     }
 
     @GetMapping(value = "add/form")
-    public User addUser(@RequestParam User user){
-        System.out.println("+++++:"+user.toString());
+    public User addUser(@RequestParam User user) {
+        System.out.println("+++++:" + user.toString());
         userList.add(user);
-        System.out.println("添加成功:"+userList.size());
-        return  user;
+        System.out.println("添加成功:" + userList.size());
+        return user;
     }
 
     @GetMapping(value = "findById")
-    public User getUser(@RequestParam("id") Integer id){
+    public User getUser(@RequestParam("id") Integer id) {
         User user = userList.stream()
-                .filter(u->u.getId().equals(id))
+                .filter(u -> u.getId().equals(id))
                 .findFirst().get();
-        return  user;
+        return user;
     }
 
     @GetMapping(value = "findById/{id}")
-    public User getUser(@PathVariable("id") String id){
+    public User getUser(@PathVariable("id") String id) {
         User user = userList.stream()
-                .filter(u->u.getId().equals(id))
+                .filter(u -> u.getId().equals(id))
                 .findFirst().get();
-        return  user;
+        return user;
     }
 
     @PostMapping(value = "findAll")
-    public List<User> findAll(Integer pageSize){
-        System.out.println("-----"+pageSize);
+    public List<User> findAll(Integer pageSize) {
+        System.out.println("-----" + pageSize);
         List<User> resultList = userList.stream()
                 .limit(pageSize)
                 .collect(Collectors.toList());
-        return  resultList;
+        return resultList;
     }
 
     @GetMapping(value = "findByIds")
-    public List<User> findByIds(@RequestParam Integer[] ids){
-        System.out.println("====:"+ids.toString());
+    public List<User> findByIds(@RequestParam Integer[] ids) {
+        System.out.println("====:" + ids.toString());
         return null;
     }
-
-
-
-
-
 
 
 }

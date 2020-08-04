@@ -28,12 +28,12 @@ public class FeignConsumerController {
 
     @PostMapping("/addUser")
     @ApiOperation(value = "添加用户")
-    public User insertUser(@RequestBody  User user){
+    public User insertUser(@RequestBody User user) {
         return prividerApi.insertUser(user);
     }
 
     @GetMapping("/addUser/form")
-    public User addUser( User user){
+    public User addUser(User user) {
         System.out.println(user.toString());
         //这样调用有问题
         //return prividerApi.addUser(user);
@@ -41,16 +41,16 @@ public class FeignConsumerController {
     }
 
     @PostMapping(value = "/findAll")
-    @ApiImplicitParam(paramType = "query",name = "pageSize",value = "条数",dataType = "int")
-    public List<User> findAll(Integer pageSize){
+    @ApiImplicitParam(paramType = "query", name = "pageSize", value = "条数", dataType = "int")
+    public List<User> findAll(Integer pageSize) {
         System.out.println(pageSize);
-        return  prividerApi.findAll(pageSize);
+        return prividerApi.findAll(pageSize);
     }
 
     @GetMapping("/findByIds")
-    public List<User> findByIds(@RequestParam Integer[] ids){
-        System.out.println("=====:"+ids);
-        System.out.println("consumer----:"+ids.length);
+    public List<User> findByIds(@RequestParam Integer[] ids) {
+        System.out.println("=====:" + ids);
+        System.out.println("consumer----:" + ids.length);
         prividerApi.findByIds(ids);
         return null;
     }

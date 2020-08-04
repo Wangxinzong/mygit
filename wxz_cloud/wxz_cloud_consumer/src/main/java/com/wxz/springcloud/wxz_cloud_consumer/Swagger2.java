@@ -2,6 +2,8 @@ package com.wxz.springcloud.wxz_cloud_consumer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -35,6 +37,7 @@ public class Swagger2 {
     /**
      * 创建该API的基本信息（这些基本信息会展现在文档页面中）
      * 访问地址：http://项目实际地址/swagger-ui.html
+     *
      * @return
      */
     private ApiInfo apiInfo() {
@@ -46,4 +49,5 @@ public class Swagger2 {
                 .version("1.0")
                 .build();
     }
+
 }
