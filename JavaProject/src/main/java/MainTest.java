@@ -7,11 +7,18 @@ import java.util.*;
 public class MainTest {
 
     public static void main(String[] args) {
-        String s= null;
-        MainTest mt = new MainTest();
-       s = mt.getSql("r.rebate_create_time");
-        //s= mt.getprevious();
-       System.out.println(s);
+       MainTest mt = new MainTest();
+      String s = mt.getSql("r.rebate_create_time");
+      System.out.println(s);
+    }
+
+    public ClassTest a(List<ClassTest> list) {
+        for (ClassTest classTest : list) {
+            if (classTest.getName().equals("b")) {
+                return classTest;
+            }
+        }
+        return null;
     }
 
     public String getSql(String fileName) {
@@ -23,8 +30,8 @@ public class MainTest {
 //            endTime = endOfTodDay(Calendar.DAY_OF_MONTH, -1);
 
         //前一周
-            startTime = startOfTodDay(Calendar.DAY_OF_WEEK, -7);
-            endTime = endOfTodDay(Calendar.DAY_OF_WEEK, -1);
+        startTime = startOfTodDay(Calendar.DAY_OF_WEEK, -7);
+        endTime = endOfTodDay(Calendar.DAY_OF_WEEK, -1);
 
         //上个月
 //            startTime = timeOfToMonth(0, -1);
@@ -77,16 +84,16 @@ public class MainTest {
         Integer day = ymwdMap.get("day");
         Integer week = ymwdMap.get("week");
         //当前日期上一天
-//            day = day - 1;
-//            dayOfYear.append(year).append("-").append(month).append("-").append(day).toString();
+//        day = day - 1;
+//        dayOfYear.append(year).append("-").append(month).append("-").append(day).toString();
 
         //当前日期上一周是今年第几周
-            week = week - 1;
-            dayOfYear.append(year).append("-").append(month).append("-").append(week).toString();
+        week = week - 1;
+        dayOfYear.append(year).append("-").append(month).append("-").append(week).toString();
 
         //上个月
-//            month = month - 1;
-//            dayOfYear.append(year).append("-").append(month).toString();
+//        month = month - 1;
+//        dayOfYear.append(year).append("-").append(month).toString();
         return dayOfYear.toString();
     }
 
@@ -99,13 +106,13 @@ public class MainTest {
         int year = date.getYear();
         int month = date.getMonth().getValue();
         int day = date.getDayOfMonth();
+        System.out.println("年:"+year+",月:"+month+",日:"+day+",周:"+week);
         map.put("year", year);
         map.put("month", month);
         map.put("week", week);
         map.put("day", day);
         return map;
     }
-
 
 
 }

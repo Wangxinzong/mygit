@@ -8,14 +8,14 @@ public class Employee {
     private Integer age;
     private Double salary;
 
-    public Employee(){
+    public Employee() {
 
     }
 
-    public Employee(String name,Integer age,Double salary){
-        this.name=name;
-        this.age=age;
-        this.salary=salary;
+    public Employee(String name, Integer age, Double salary) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
     }
 
     public String getName() {

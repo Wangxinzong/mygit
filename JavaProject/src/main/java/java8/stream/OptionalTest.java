@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class OptionalTest {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //创建Optional实例,参数不能为null
         Optional<Employee> employeeOptional = Optional.of(new Employee());
 
@@ -19,10 +19,8 @@ public class OptionalTest {
         System.out.println(b);
 
         //如果Optional实例中有值，则返回值，否则返回T
-        Employee employee = optional.orElse(new Employee("测试",0,0d));
+        Employee employee = optional.orElse(new Employee("测试", 0, 0d));
         System.out.println(employee);
-
-
 
 
     }
