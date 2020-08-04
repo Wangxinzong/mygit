@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class QueueMain {
 
     public static void main(String[] args){
-        ArrayQueue queue =new ArrayQueue(3);
+        //ArrayQueue queue =new ArrayQueue(3);
+        AnnulusQueue queue = new AnnulusQueue(5);
         Scanner scanner = new Scanner(System.in);
         boolean loop=true;
         String key;
