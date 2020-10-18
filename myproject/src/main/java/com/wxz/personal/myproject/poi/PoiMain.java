@@ -6,6 +6,8 @@ public class PoiMain {
         Docx docx = new Docx();
         //docx.write2docx();
         //docx.read2docx();
-        docx.mergeCellTest();
+
+        PDF pdf = new PDF();
+        pdf.write2pdf();
     }
 }
