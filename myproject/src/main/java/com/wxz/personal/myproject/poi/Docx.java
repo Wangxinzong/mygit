@@ -1,5 +1,6 @@
 package com.wxz.personal.myproject.poi;
 
+import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.model.XWPFHeaderFooterPolicy;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
@@ -12,7 +13,7 @@ public class Docx {
 
     public void write2docx() throws Exception {
         XWPFDocument document = new XWPFDocument();
-        FileOutputStream fos = new FileOutputStream(new File("E:\\write-test.docx"));
+        FileOutputStream fos = new FileOutputStream(new File("D:\\write-test.docx"));
         /**
          * createParagraph：创建XWPFParagraph对象，在word文档里创建一个段落。
          * */
@@ -66,6 +67,22 @@ public class Docx {
         XWPFRun paragraphRun1 = paragraph1.createRun();
         paragraphRun1.setText("\r");
 
+        //图片
+        String picUrl = "D:\\Pictures\\4.jpg";
+        XWPFParagraph picParagraph = document.createParagraph();
+        XWPFRun picRun = picParagraph.createRun();
+        FileInputStream is = new FileInputStream(picUrl);
+        System.out.println("++++++"+is.available());
+        picRun.addPicture(is,XWPFDocument.PICTURE_TYPE_JPEG,picUrl, Units.toEMU(300), Units.toEMU(300));
+//        byte[] b = new byte[is.available()];
+//        int i=0;
+//        while (is.read()!=-1){
+//            is.read(b);
+//        }
+//        System.out.println("-----:"+b.length);
+//        ByteArrayInputStream byteInputStream = new ByteArrayInputStream(b);
+//        System.out.println("======="+byteInputStream.available());
+//        picRun.addPicture(is,XWPFDocument.PICTURE_TYPE_JPEG,picUrl, Units.toEMU(300), Units.toEMU(300));
         //基本信息表格
         /**
          * 创建一个空表格，会默认有一行，行的宽度是0
