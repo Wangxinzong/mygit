@@ -30,5 +30,13 @@ public class LoginController {
         return baseResponse;
     }
 
+    @RequestMapping("index")
+    public BaseResponse index() {
+        System.out.println(user.toString());
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessage("登录成功后返回的页面");
+        return baseResponse;
+    }
+
 
 }
