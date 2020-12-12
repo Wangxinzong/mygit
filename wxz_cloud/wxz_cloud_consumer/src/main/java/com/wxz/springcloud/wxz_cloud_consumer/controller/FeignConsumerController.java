@@ -2,6 +2,7 @@ package com.wxz.springcloud.wxz_cloud_consumer.controller;
 
 import com.wxz.springcloud.wxz_cloud_common.entity.User;
 import com.wxz.springcloud.wxz_cloud_consumer.controller.api.PrividerApi;
+import feign.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +15,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,5 +57,28 @@ public class FeignConsumerController {
         System.out.println("consumer----:" + ids.length);
         prividerApi.findByIds(ids);
         return null;
+    }
+
+    @GetMapping("/stream")
+    public void stream(HttpServletResponse servletResponse){
+        Response response = prividerApi.stream();
+        Response.Body body = response.body();
+        InputStream fileInputStream = null;
+        OutputStream outStream;
+        try {
+            fileInputStream = body.asInputStream();
+            outStream = servletResponse.getOutputStream();
+
+            byte[] bytes = new byte[1024];
+            int len = 0;
+            while ((len = fileInputStream.read(bytes)) != -1) {
+                outStream.write(bytes, 0, len);
+            }
+            fileInputStream.close();
+            outStream.close();
+            outStream.flush();
+        } catch (Exception e) {
+
+        }
     }
 }

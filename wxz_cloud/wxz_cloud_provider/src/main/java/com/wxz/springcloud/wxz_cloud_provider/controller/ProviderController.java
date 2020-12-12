@@ -3,6 +3,8 @@ package com.wxz.springcloud.wxz_cloud_provider.controller;
 import com.wxz.springcloud.wxz_cloud_common.entity.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,6 +58,27 @@ public class ProviderController {
     public List<User> findByIds(@RequestParam Integer[] ids) {
         System.out.println("====:" + ids.toString());
         return null;
+    }
+
+    @GetMapping(value = "stream")
+    public void stream(HttpServletResponse response){
+        OutputStream outStream;
+        try {
+            File file = new File("D:\\工作表.xlsx");
+            InputStream fileInputStream = new FileInputStream(file);
+            outStream = response.getOutputStream();
+
+            byte[] bytes = new byte[1024];
+            int len = 0;
+            while ((len = fileInputStream.read(bytes)) != -1) {
+                outStream.write(bytes, 0, len);
+            }
+            fileInputStream.close();
+            outStream.close();
+            outStream.flush();
+        } catch (IOException e) {
+
+        }
     }
 
 
