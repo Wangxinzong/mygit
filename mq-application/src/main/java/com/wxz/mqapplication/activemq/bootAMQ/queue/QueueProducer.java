@@ -12,10 +12,10 @@ public class QueueProducer {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
-    @Autowired
-    private Queue queue;
+//    @Autowired
+//    private Queue queue;
 
-    public void sendQueue() {
-        jmsMessagingTemplate.convertAndSend(queue, "队列消息");
-    }
+//    public void sendQueue() {
+//        jmsMessagingTemplate.convertAndSend(queue, "队列消息");
+//    }
 }

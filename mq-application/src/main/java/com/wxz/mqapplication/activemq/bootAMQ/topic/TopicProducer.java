@@ -9,12 +9,12 @@ import javax.jms.Topic;
 @Component
 public class TopicProducer {
 
-    @Autowired
-    private JmsMessagingTemplate jmsMessagingTemplate;
-    @Autowired
-    private Topic topic;
-
-    public void sendTopic() {
-        jmsMessagingTemplate.convertAndSend(topic, "---主题消息----");
-    }
+//    @Autowired
+//    private JmsMessagingTemplate jmsMessagingTemplate;
+//    @Autowired
+//    private Topic topic;
+//
+//    public void sendTopic() {
+//        jmsMessagingTemplate.convertAndSend(topic, "---主题消息----");
+//    }
 }

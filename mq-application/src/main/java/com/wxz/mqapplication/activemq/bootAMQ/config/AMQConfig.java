@@ -10,24 +10,24 @@ import org.springframework.jms.annotation.EnableJms;
 import javax.jms.Queue;
 import javax.jms.Topic;
 
-@Configuration
-@EnableJms
+//@Configuration
+//@EnableJms
 public class AMQConfig {
 
-    @Value("${queueName}")
-    private String queueName;
-
-    @Value("${topicName}")
-    private String topicName;
-
-    @Bean
-    public Queue createQueue() {
-        return new ActiveMQQueue(queueName);
-    }
-
-    @Bean
-    public Topic createTopic() {
-        return new ActiveMQTopic(topicName);
-    }
+//    @Value("${queueName}")
+//    private String queueName;
+//
+//    @Value("${topicName}")
+//    private String topicName;
+//
+//    @Bean
+//    public Queue createQueue() {
+//        return new ActiveMQQueue(queueName);
+//    }
+//
+//    @Bean
+//    public Topic createTopic() {
+//        return new ActiveMQTopic(topicName);
+//    }
 
 }
