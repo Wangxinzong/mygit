@@ -55,8 +55,8 @@ public class SignatureUtils {
         personJsonObject.put("cardNum", "150981197202284550");
         personJsonObject.put("mobile", "15136305592");
         personJsonObject.put("imgBase64", imgBase64);
-        personJsonObject.put("imgWidth", 0);
-        personJsonObject.put("imgHeight", 0);
+        personJsonObject.put("imgWidth", 100);
+        personJsonObject.put("imgHeight", 50);
         jsonObject.put("person", personJsonObject);
         //关键字信息
         JSONObject keyWordObject = new JSONObject();

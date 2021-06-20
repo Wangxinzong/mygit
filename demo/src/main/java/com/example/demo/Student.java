@@ -1,10 +1,13 @@
 package com.example.demo;
 
+import java.util.List;
+
 public class Student {
     private int id;
     private String name;
     private int sex;
     private int age;
+    private List<Model> list;
 
     public Student(){
 
@@ -47,5 +50,13 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Model> getList() {
+        return list;
+    }
+
+    public void setList(List<Model> list) {
+        this.list = list;
     }
 }
